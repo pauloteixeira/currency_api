@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get("v1/hc"          ,"Api\V1\\HealthCheckController@hc")->name("health.check");
+Route::post("v1/code"       ,"Api\V1\\CurrencyController@code")->name("currencies.by.code");
+Route::post("v1/code/list"  ,"Api\V1\\CurrencyController@codeList")->name("currencies.by.code.list");
+Route::post("v1/number"     ,"Api\V1\\CurrencyController@number")->name("currencies.by.number");
+Route::post("v1/number/list","Api\V1\\CurrencyController@numberList")->name("currencies.by.number.list");

@@ -9,7 +9,7 @@ class CurrencyLocations extends Model
     public $timestamps			= false;
 	protected $primaryKey		= 'id';
 	protected $table			= 'currency_locations';
-	protected $connection		= 'mysql';
+	protected $connection		= 'appConn';
 
 	protected $fillable			= ['currency_id','location','icon'];
 

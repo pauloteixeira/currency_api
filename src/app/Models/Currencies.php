@@ -9,7 +9,7 @@ class Currencies extends Model
     public $timestamps			= false;
 	protected $primaryKey		= 'id';
 	protected $table			= 'currencies';
-	protected $connection		= 'mysql';
+	protected $connection		= 'appConn';
 
 	protected $fillable			= ['code','number','decimal','currency'];
 

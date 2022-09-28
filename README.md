@@ -48,7 +48,7 @@ Então ainda na pasta src execute o comando abaixo para criar a estrutura de mig
 $ php artisan migrate
 ```
 
-## TESTES UNITÃRIOS
+## TESTES UNITÁRIOS
 Para execução dos testes unitãrios execute os comandos abaixo na pasta src do projeto
 
 ```bash

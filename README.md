@@ -48,6 +48,8 @@ Então ainda na pasta src execute o comando abaixo para criar a estrutura de mig
 $ php artisan migrate
 ```
 
+Na raiz do repositório contém o modelo das tabelas da API num arquivo do MySQLWorkbench com o nome ModeloTabelasCurrency.mwb.
+
 ## TESTES UNITÁRIOS
 Para execução dos testes unitãrios execute os comandos abaixo na pasta src do projeto
 

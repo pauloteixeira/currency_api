@@ -57,4 +57,5 @@ A lista de endpoints implementadas são:
 - [POST] - http://localhost/api/v1/number
 - [POST] - http://localhost/api/v1/number/list
 
+E a documentação poderá ser vista na URL: http://localhost
 

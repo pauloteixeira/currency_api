@@ -20,7 +20,11 @@ trait Utils {
         return Carbon::now()->toDateTimeString();
     }
 
+    /**
+     * se o test unitário retornar falhas, será necessário usar esta função
+     */
     public function encodeResult( Array $data ) {
         return mb_convert_encoding($data, "UTF-8", "auto");
+        //return $data;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Currencies;
+use Illuminate\Support\Facades\Cache;
 
 
 class CurrencyController extends Controller {
@@ -21,29 +22,25 @@ class CurrencyController extends Controller {
                 ]];    
         }
         
-        $err    = [];
-        
         try{
             $code   = $this->formatCode($request->post("code"));
-            $model  = Currencies::where(["code" => $code])->with(["locations"])->get();
+            $model  = Cache::remember('byCode', 60, function () use ($code) {
+                return Currencies::where(["code" => $code])->with(["locations"])->get();
+            });
+
             $result = ["retorno" => [
-                "body"      => $model,
-                "timestamp" =>$this->currentTimeStamp()
+                "body" => $model
             ]];
         }
         catch( \Throwable $t ){
-            $err[] = ["message" => $t->getMessage()];
-        }
-
-        if( count($err) > 0 ){
             $result = ["retorno" => [
-                "errorCode" => "500",
+                "hc"        => "NOT OK",
                 "timestamp" => $this->currentTimeStamp(),
-                "problem"   => $err
+                "problem"   => ["message" => $t->getMessage()]
             ]];
         }
 
-        return $this->encodeResult($result);
+        return $result;
     }
 
     public function codeList( Request $request ){
@@ -55,29 +52,25 @@ class CurrencyController extends Controller {
                 ]];    
         }
         
-        $err    = [];
-        
         try{
             $codeList   = $this->formatCode($request->post("code_list"), self::IS_ARRAY_PARAMS);
-            $model      = Currencies::whereIn("code", $codeList)->with(["locations"])->get();
+            $model      = Cache::remember('byCodeList', 60, function () use ($codeList) {
+                return Currencies::whereIn("code", $codeList)->with(["locations"])->get();
+            });
+
             $result     = ["retorno" => [
-                "body"      => $model,
-                "timestamp" =>$this->currentTimeStamp()
+                "body" => $model
             ]];
         }
         catch( \Throwable $t ){
-            $err[] = ["message" => $t->getMessage()];
-        }
-
-        if( count($err) > 0 ){
             $result = ["retorno" => [
-                "errorCode" => "500",
+                "hc"        => "NOT OK",
                 "timestamp" => $this->currentTimeStamp(),
-                "problem"   => $err
+                "problem"   => ["message" => $t->getMessage()]
             ]];
         }
 
-        return $this->encodeResult($result);
+        return $result;
     }
 
     public function number( Request $request ){
@@ -89,29 +82,25 @@ class CurrencyController extends Controller {
                 ]];    
         }
         
-        $err    = [];
-        
         try{
             $number = $this->formatCode($request->post("number"));
-            $model  = Currencies::where(["number" => $number])->with(["locations"])->get();
+            $model  = Cache::remember('byNumber', 60, function () use ($number) {
+                return Currencies::where(["number" => $number])->with(["locations"])->get();
+            });
+
             $result = ["retorno" => [
-                "body"      => $model,
-                "timestamp" =>$this->currentTimeStamp()
+                "body" => $model
             ]];
         }
         catch( \Throwable $t ){
-            $err[] = ["message" => $t->getMessage()];
-        }
-
-        if( count($err) > 0 ){
             $result = ["retorno" => [
-                "errorCode" => "500",
+                "hc"        => "NOT OK",
                 "timestamp" => $this->currentTimeStamp(),
-                "problem"   => $err
+                "problem"   => ["message" => $t->getMessage()]
             ]];
         }
 
-        return $this->encodeResult($result);
+        return $result;
     }
 
     public function numberList( Request $request ){
@@ -123,29 +112,25 @@ class CurrencyController extends Controller {
                 ]];    
         }
         
-        $err    = [];
-        
         try{
             $numberList = $this->formatCode($request->post("number_list"), self::IS_ARRAY_PARAMS);
-            $model      = Currencies::whereIn("number", $numberList)->with(["locations"])->get();
+            $model      = Cache::remember('byNumberList', 60, function () use ($numberList) {
+                return Currencies::whereIn("number", $numberList)->with(["locations"])->get();
+            });
+            
             $result     = ["retorno" => [
-                "body"      => $model,
-                "timestamp" =>$this->currentTimeStamp()
+                "body" => $model
             ]];
         }
         catch( \Throwable $t ){
-            $err[] = ["message" => $t->getMessage()];
-        }
-
-        if( count($err) > 0 ){
             $result = ["retorno" => [
-                "errorCode" => "500",
+                "hc"        => "NOT OK",
                 "timestamp" => $this->currentTimeStamp(),
-                "problem"   => $err
+                "problem"   => ["message" => $t->getMessage()]
             ]];
         }
 
-        return $this->encodeResult($result);
+        return $result;
     }
 }
 

@@ -66,5 +66,10 @@ A lista de endpoints implementadas são:
 
 E a documentação poderá ser vista na URL: http://localhost
 
+## DADOS NO BANCO
+Para realização dos testes eu creiei migrations com as seguintes moedas
+
+- Códigos: [AED,ANG,BOB,BOV,BRL,CAD,USD]
+- Números: [068,124,532,784,840,984,986]
 
 

@@ -68,6 +68,8 @@ A lista de endpoints implementadas são:
 
 E a documentação poderá ser vista na URL: http://localhost
 
+Na raiz do repositório tem um arquivo chamado: CurrencyAPI.json, trata-se da Collection do Postman que pode ser importada para utilizar a API.
+
 ## DADOS NO BANCO
 Para realização dos testes eu creiei migrations com as seguintes moedas
 

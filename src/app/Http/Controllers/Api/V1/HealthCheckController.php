@@ -31,7 +31,7 @@ class HealthCheckController extends Controller {
             ]];
         }
 
-        return $result;
+        return $this->encodeResult($result);
     }
 }
 

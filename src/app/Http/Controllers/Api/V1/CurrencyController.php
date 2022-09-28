@@ -43,7 +43,7 @@ class CurrencyController extends Controller {
             ]];
         }
 
-        return $result;
+        return $this->encodeResult($result);
     }
 
     public function codeList( Request $request ){
@@ -77,7 +77,7 @@ class CurrencyController extends Controller {
             ]];
         }
 
-        return $result;
+        return $this->encodeResult($result);
     }
 
     public function number( Request $request ){
@@ -111,7 +111,7 @@ class CurrencyController extends Controller {
             ]];
         }
 
-        return $result;
+        return $this->encodeResult($result);
     }
 
     public function numberList( Request $request ){
@@ -145,7 +145,7 @@ class CurrencyController extends Controller {
             ]];
         }
 
-        return $result;
+        return $this->encodeResult($result);
     }
 }
 

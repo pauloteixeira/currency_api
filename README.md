@@ -48,6 +48,13 @@ Então ainda na pasta src execute o comando abaixo para criar a estrutura de mig
 $ php artisan migrate
 ```
 
+## TESTES UNITÃRIOS
+Para execução dos testes unitãrios execute os comandos abaixo na pasta src do projeto
+
+```bash
+$ composer dump-autoload
+```
+
 ## UTILIZAR A APLICAÇÃO
 A lista de endpoints implementadas são:
 
@@ -58,4 +65,6 @@ A lista de endpoints implementadas são:
 - [POST] - http://localhost/api/v1/number/list
 
 E a documentação poderá ser vista na URL: http://localhost
+
+
 

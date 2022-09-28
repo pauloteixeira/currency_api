@@ -19,4 +19,8 @@ trait Utils {
     public function currentTimeStamp() {
         return Carbon::now()->toDateTimeString();
     }
+
+    public function encodeResult( Array $data ) {
+        return mb_convert_encoding($data, "UTF-8", "auto");
+    }
 }

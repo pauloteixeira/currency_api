@@ -51,10 +51,10 @@ $ php artisan migrate
 ## UTILIZAR A APLICAÇÃO
 A lista de endpoints implementadas são:
 
-- [GET]http://localhost/api/v1/hc
-- [POST]http://localhost/api/v1/code
-- [POST]http://localhost/api/v1/code/list
-- [POST]http://localhost/api/v1/number
-- [POST]http://localhost/api/v1/number/list
+- [GET] - http://localhost/api/v1/hc
+- [POST] - http://localhost/api/v1/code
+- [POST] - http://localhost/api/v1/code/list
+- [POST] - http://localhost/api/v1/number
+- [POST] - http://localhost/api/v1/number/list
 
 

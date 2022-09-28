@@ -52,17 +52,17 @@ $ php artisan migrate
 Para execução dos testes unitãrios execute os comandos abaixo na pasta src do projeto
 
 ```bash
-$ composer dump-autoload
+$ vendor/bin/phpunit
 ```
 
 ## UTILIZAR A APLICAÇÃO
 A lista de endpoints implementadas são:
 
-- [GET] - http://localhost/api/v1/hc
-- [POST] - http://localhost/api/v1/code
-- [POST] - http://localhost/api/v1/code/list
-- [POST] - http://localhost/api/v1/number
-- [POST] - http://localhost/api/v1/number/list
+- [GET] - [http://localhost/api/v1/hc](http://localhost/#1)
+- [POST] - [http://localhost/api/v1/code](http://localhost/#2)
+- [POST] - [http://localhost/api/v1/code/list](http://localhost/#3)
+- [POST] - [http://localhost/api/v1/number](http://localhost/#4)
+- [POST] - [http://localhost/api/v1/number/list](http://localhost/#5)
 
 E a documentação poderá ser vista na URL: http://localhost
 

@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Cache;
 class CurrencyController extends Controller {
     use \App\Helpers\Utils;
 
-    const IS_ARRAY_PARAMS = true;
+    const IS_ARRAY_PARAMS        = true;
+    const SIXTY_SECONDS_DURATION = 60;
 
     public function code( Request $request ){
         if( !$request->isMethod("post") ) {
@@ -24,7 +25,7 @@ class CurrencyController extends Controller {
         
         try{
             $code   = $this->formatCode($request->post("code"));
-            $model  = Cache::remember('byCode', 60, function () use ($code) {
+            $model  = Cache::remember('byCode', self::SIXTY_SECONDS_DURATION, function () use ($code) {
                 return Currencies::where(["code" => $code])->with(["locations"])->get();
             });
 
@@ -54,7 +55,7 @@ class CurrencyController extends Controller {
         
         try{
             $codeList   = $this->formatCode($request->post("code_list"), self::IS_ARRAY_PARAMS);
-            $model      = Cache::remember('byCodeList', 60, function () use ($codeList) {
+            $model      = Cache::remember('byCodeList', self::SIXTY_SECONDS_DURATION, function () use ($codeList) {
                 return Currencies::whereIn("code", $codeList)->with(["locations"])->get();
             });
 
@@ -84,7 +85,7 @@ class CurrencyController extends Controller {
         
         try{
             $number = $this->formatCode($request->post("number"));
-            $model  = Cache::remember('byNumber', 60, function () use ($number) {
+            $model  = Cache::remember('byNumber', self::SIXTY_SECONDS_DURATION, function () use ($number) {
                 return Currencies::where(["number" => $number])->with(["locations"])->get();
             });
 
@@ -114,7 +115,7 @@ class CurrencyController extends Controller {
         
         try{
             $numberList = $this->formatCode($request->post("number_list"), self::IS_ARRAY_PARAMS);
-            $model      = Cache::remember('byNumberList', 60, function () use ($numberList) {
+            $model      = Cache::remember('byNumberList', self::SIXTY_SECONDS_DURATION, function () use ($numberList) {
                 return Currencies::whereIn("number", $numberList)->with(["locations"])->get();
             });
             

@@ -21,10 +21,9 @@ trait Utils {
     }
 
     /**
-     * se o test unitário retornar falhas, será necessário usar esta função
+     * se o test unitário retornar falhas mesmo estando ok, será necessário usar esta função no retorno
      */
     public function encodeResult( Array $data ) {
         return mb_convert_encoding($data, "UTF-8", "auto");
-        //return $data;
     }
 }

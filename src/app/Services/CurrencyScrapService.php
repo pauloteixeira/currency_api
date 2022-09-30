@@ -10,8 +10,7 @@ class CurrencyScrapService
     public function collectData(){
         $client      = new CrawlerService("https://pt.wikipedia.org/wiki/ISO_4217");
         $crawler     = $client->crawlingPage();
-        $images      = [];
-        $table       = $crawler->filter("table")->filter("tr")->each(function ($tr, $i) use ($images) {
+        $table       = $crawler->filter("table")->filter("tr")->each(function ($tr, $i) {
             $tdNode  = $tr->filter('td');
             $counter = 0;
             return $tdNode->each(function ($td, $i) use (&$counter) {
@@ -27,23 +26,24 @@ class CurrencyScrapService
             });
         });
 
-        return $this->migrateData($table);
+        return $this->serializeData($table);
     }
 
-    private function createDataTable($table) {
-        $dataTable = [];
-
-        foreach( $table as $row ) {
-            if( count($row) == 5 ) {
-                $dataTable[] = (Object)["codigo" => $row[0]->td, "number" => $row[1]->td, "decimal" => $row[2]->td, "currency" => $row[3]->td, 
-                "location" => trim($row[4]->td), "img" => $row[4]->img];
+    private function scrapImageFromTable($td, $quantity) {
+        try{
+            $imgs = [];
+            for( $i= 0; $i < $quantity; $i++ ) {
+                $imgs[] = $td->filter("img")->eq($i)->attr("src");
             }
-        }
 
-        return $dataTable;
+            return $imgs;
+        }
+        catch(\Exception $t ){
+            return;
+        }
     }
 
-    private function migrateData(Array $table) {
+    private function serializeData(Array $table) {
         $dataTable  = $this->createDataTable($table);
         $currency   = [];
         $counter    = 1;
@@ -54,26 +54,16 @@ class CurrencyScrapService
 
             $locations  = explode(",", $row->location);
             $location   = [];
-            if( count($locations) == 1 )
-            {
+            
+            for( $i = 0; $i < count($locations); $i++ ) {
+                if( is_array($row->img) == false ) continue;
+
+                $img        = (array_key_exists($i,$row->img)) ? $row->img[$i] : $row->img[0];
                 $location[] = [
-                    'currency_id'   => $counter,
-                    'location'      => trim($locations[0]),
-                    'icon'          => "https:" . $row->img[0],
+                        'currency_id'   => $counter,
+                        'location'      => trim($locations[$i]),
+                        'icon'          => "https:" . $img,
                 ];
-            }
-            else{
-                for( $i = 0; $i < count($locations); $i++ ) {
-                    if( is_array($row->img) == false ) continue;
-
-                    $img        = (array_key_exists($i,$row->img)) ? $row->img[$i] : $row->img[0];
-                    $location[] = [
-                            'currency_id'   => $counter,
-                            'location'      => trim($locations[$i]),
-                            'icon'          => "https:" . $img,
-                    ];
-                }
-
             }
 
             $currency[] = ["currency" => [
@@ -90,17 +80,16 @@ class CurrencyScrapService
         return $currency;
     }
 
-    private function scrapImageFromTable($table, $quantity) {
-        try{
-            $imgs = [];
-            for( $i= 0; $i < $quantity; $i++ ) {
-                $imgs[] = $table->filter("img")->eq($i)->attr("src");
-            }
+    private function createDataTable($table) {
+        $dataTable = [];
 
-            return $imgs;
+        foreach( $table as $row ) {
+            if( count($row) == 5 ) {
+                $dataTable[] = (Object)["codigo" => $row[0]->td, "number" => $row[1]->td, "decimal" => $row[2]->td, "currency" => $row[3]->td, 
+                "location" => trim($row[4]->td), "img" => $row[4]->img];
+            }
         }
-        catch(\Exception $t ){
-            return;
-        }
+
+        return $dataTable;
     }
 }

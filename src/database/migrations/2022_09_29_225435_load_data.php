@@ -14,6 +14,13 @@ class LoadData extends Migration
      */
     public function up()
     {
+        $currencyData = $this->scrapData();
+        
+        DB::table('currencies')->insert($currencyData->currency);
+        DB::table('currency_locations')->insert($currencyData->location);
+    }
+
+    private function scrapData() {
         $scrap      = new CurrencyScrapService();
         $dataLoad   = $scrap->collectData();
         $currencies = [];
@@ -27,8 +34,7 @@ class LoadData extends Migration
             }
         }
 
-        DB::table('currencies')->insert($currencies);
-        DB::table('currency_locations')->insert($locations);
+        return (Object)["currency" => $currencies, "location" => $locations];
     }
 
     /**

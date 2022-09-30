@@ -15,10 +15,10 @@ class Currencies extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->increments('id');
-            $table->char('code',3)->unique();
-            $table->char('number',3);
+            $table->char('code', 3)->unique();
+            $table->char('number', 3);
             $table->tinyInteger('decimal')->nullable();
-            $table->string('currency',150);
+            $table->string('currency', 150);
             $table->timestamp('created_at')->useCurrent();
             $table->index("code");
             $table->index("number");

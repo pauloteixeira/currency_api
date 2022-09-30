@@ -17,9 +17,9 @@ class CurrencyLocations extends Migration
             $table->increments('id');
             $table->integer('currency_id')->unsigned();
             $table->foreign('currency_id')->references('id')->on('currencies');
-            $table->string('location',255);
-            $table->string('icon',255)->nullable();
-         });
+            $table->string('location', 255);
+            $table->string('icon', 255)->nullable();
+        });
     }
 
     /**

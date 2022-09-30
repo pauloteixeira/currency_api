@@ -23,59 +23,6 @@ class Currencies extends Migration
             $table->index("code");
             $table->index("number");
         });
-
-        $data = [
-            [
-                'id'        => 1,
-                'code'      => 'AED',
-                'number'    => '784',
-                'decimal'   => 2,
-                'currency'  => 'Dirham dos Emirados',                
-            ],
-            [
-                'id'        => 2,
-                'code'      => 'ANG',
-                'number'    => '532',
-                'decimal'   => 2,
-                'currency'  => 'Florim',              
-            ],
-            [
-                'id'        => 3,
-                'code'      => 'BOB',
-                'number'    => '068',
-                'decimal'   => 2,
-                'currency'  => 'Boliviano',              
-            ],
-            [
-                'id'        => 4,
-                'code'      => 'BOV',
-                'number'    => '984',
-                'decimal'   => 2,
-                'currency'  => 'Boliviano Mvdol',              
-            ],
-            [
-                'id'        => 5,
-                'code'      => 'BRL',
-                'number'    => '986',
-                'decimal'   => 2,
-                'currency'  => 'Real',              
-            ],
-            [
-                'id'        => 6,
-                'code'      => 'CAD',
-                'number'    => '124',
-                'decimal'   => 2,
-                'currency'  => 'Dólar Canadense',              
-            ],
-            [
-                'id'        => 7,
-                'code'      => 'USD',
-                'number'    => '840',
-                'decimal'   => 2,
-                'currency'  => 'Dólar Americano',              
-            ],
-        ];
-        DB::table('currencies')->insert($data);
     }
 
     /**

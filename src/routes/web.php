@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get("/", "Api\\v1\CurrencyController@index")->name("crawler");
 Route::get("/page", "TestController@test")->name("crawler");

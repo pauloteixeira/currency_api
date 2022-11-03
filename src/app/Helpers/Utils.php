@@ -35,4 +35,11 @@ trait Utils
     {
         return mb_convert_encoding($data, "UTF-8", "auto");
     }
+
+    /**
+     * Verifica se existe aspas simples e remove ela caso exista
+     */
+    public function preventSingleQuotes($value) {
+        return str_replace("`", "", $value);
+    }
 }

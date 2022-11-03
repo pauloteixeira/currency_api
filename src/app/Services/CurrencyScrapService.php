@@ -6,7 +6,10 @@ use App\Services\CrawlerService;
 
 class CurrencyScrapService
 {
+    use \App\Helpers\Utils;
+
     const TEST_LIMIT = 20;
+    
     public function collectData()
     {
         $client      = new CrawlerService("https://pt.wikipedia.org/wiki/ISO_4217");
@@ -21,9 +24,9 @@ class CurrencyScrapService
                     $quantity   = count(explode(",", $itemTd));
                     $image      = $this->scrapImageFromTable($td, $quantity);
 
-                    return (object)["td" => trim($td->text()), "img" => $image];
+                    return (object)["td" => $this->preventSingleQuotes($td->text()), "img" => $image];
                 }
-                return (object)["td" => trim($td->text())];
+                return (object)["td" => $this->preventSingleQuotes($td->text())];
             });
         });
 
@@ -53,7 +56,7 @@ class CurrencyScrapService
 
         foreach ($dataTable as $row) {
             if (++$steps == self::TEST_LIMIT) {
-                break; //limitando a quantidade em 20 registros para finalidade de teste
+                //break; //limitando a quantidade em 20 registros para finalidade de teste
             }
 
             $locations = explode(",", $row->location);
@@ -67,7 +70,7 @@ class CurrencyScrapService
                 $img = (array_key_exists($i, $row->img)) ? $row->img[$i] : $row->img[0];
                 $location[] = [
                         'currency_id' => $counter,
-                        'location' => trim($locations[$i]),
+                        'location' => $this->preventSingleQuotes($locations[$i]),
                         'icon' => "https:" . $img,
                 ];
             }
@@ -76,7 +79,7 @@ class CurrencyScrapService
                     'id' => $counter++,
                     'code' => $row->codigo,
                     'number' => $row->number,
-                    'decimal' => $row->decimal,
+                    'decimal' => intval($row->decimal),
                     'currency' => $row->currency,
                 ],
                 "location" => $location
@@ -93,7 +96,7 @@ class CurrencyScrapService
         foreach ($table as $row) {
             if (count($row) == 5) {
                 $dataTable[] = (object)["codigo" => $row[0]->td, "number" => $row[1]->td, "decimal" => $row[2]->td, "currency" => $row[3]->td,
-                "location" => trim($row[4]->td), "img" => $row[4]->img];
+                "location" => $this->preventSingleQuotes($row[4]->td), "img" => $row[4]->img];
             }
         }
 

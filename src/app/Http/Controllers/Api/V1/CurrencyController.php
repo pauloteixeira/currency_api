@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Currencies;
 use Illuminate\Support\Facades\Cache;
+use App\Services\CurrencyScrapService;
 
 class CurrencyController extends Controller
 {
@@ -13,6 +14,25 @@ class CurrencyController extends Controller
 
     const IS_ARRAY_PARAMS = true;
     const SIXTY_SECONDS_DURATION = 60;
+
+    public function index(Request $request) {
+        $scrap      = new CurrencyScrapService();
+        $dataLoad   = $scrap->collectData();
+        $currencies = [];
+        $locations  = [];
+
+        foreach ($dataLoad as $row) {
+            $currencies[] = $row["currency"];
+
+            for ($i = 0; $i < count($row["location"]); $i++) {
+                $locations[]  = $row["location"][$i];
+            }
+        }
+
+        dd(
+            (object)["currency" => $currencies, "location" => $locations]
+        );  
+    } 
 
     public function code(Request $request)
     {
